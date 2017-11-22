@@ -1,0 +1,21 @@
+<h1>查看站点信息</h1>
+<%= link_to '修改', edit_site_path(@site),class:"btn btn-default" %>
+<%= link_to '返回', sites_path,class:"btn btn-default" %>
+<blockquote>
+  <p>
+	  	<strong>站点名称:</strong>
+	  <%= @site.site_name %>
+  </p>
+</blockquote>
+<blockquote>
+  <p>
+	  	<strong>搜索URL:</strong>
+  		<%= @site.search_url %>
+  </p>
+</blockquote>
+<blockquote>
+  <p>
+	  	<strong>主站:</strong>
+  		<%= link_to_blank @site.main_url,@site.main_url %>
+  </p>
+</blockquote>

@@ -1,0 +1,22 @@
+<div class="clearfix raw">
+  <%= form_for @site do |f| %>
+    <div class="col-sm-8">
+      <div class="form-group">
+        <%= f.label "site_name","站点名称"%>
+        <%= f.text_field :site_name ,:class => "form-control "%>
+      </div>
+      <div class="form-group">
+        <%= f.label "search_url","搜索URL"%>
+        <%= f.text_field :search_url ,:class=> "form-control"%>
+      </div>
+      <fieldset disabled>
+        <div class="form-group">
+          <%= f.label "main_url","网址"%>
+          <%= f.text_field :main_url ,:class=> "form-control"%>
+        </div>
+      </fieldset>
+      <%= f.submit "#{@site.new_record? ? '创建' : '保存'}",class:"btn btn-default"%>
+      <%= link_to '返回', sites_path ,class:"btn btn-default" %>
+    </div>
+  <% end %>
+</div>

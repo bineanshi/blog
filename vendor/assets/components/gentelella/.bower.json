@@ -29,7 +29,6 @@
     "commit": "e0ce81abebd705ddb783dc7752a7ab2a2f7bd434"
   },
   "_source": "https://github.com/puikinsh/gentelella.git",
-  "_target": "^1.1.0",
-  "_originalSource": "gentelella",
-  "_direct": true
+  "_target": "1.1.0",
+  "_originalSource": "gentelella"
 }

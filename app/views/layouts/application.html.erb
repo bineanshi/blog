@@ -17,10 +17,26 @@
       <div align="center" id="flash" class="alert alert-<%= key %>"><%= value %></div>
   <% end %>
 
-<%= render "partials/sidenav" %>
-<%= render "partials/topnav" %>
+  <%= render "partials/sidenav" %>
+  <%= render "partials/topnav" %>
 
-<%= yield %>
+<!-- page content -->
+<div class="right_col" role="main">
+  <div class="">
+    <div class="row">
+
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel" style="height:auto;">
+          <div class="x_title">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /page content -->
+
 
   <%= render "partials/footer" %>
   <%= javascript_include_tag 'footermanifest', 'data-turbolinks-track' => true %>

@@ -1,0 +1,42 @@
+<h1>匹配规则</h1>
+<div class="clearfix">
+  <blockquote>
+    <p>
+       说明：
+       <p>links: 搜索后列表内容链接匹配规则</p>
+       <p>images: 文章内部图片匹配规则</p>
+    </p>
+  </blockquote>
+  <%#= link_to '规则列表', site_rules_path %>
+  <div class="col-md-6">
+    <%= link_to '新建匹配规则', new_site_rule_path ,class:"btn btn-primary"%>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th class="text-center">序号</th>
+          <th class="text-center">站点名称</th>
+          <th class="text-center">规则名称</th>
+          <th class="text-center">操作</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @site_rules.each_with_index do |site_rule,index| %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= site_rule.site_name %></td>
+            <td><%= site_rule.rule_name %></td>
+            <td class="text-center">
+              <div class="btn-group">
+                <%= link_to '查看', site_rule ,class:"btn btn-default"%>
+                <%= link_to '修改', edit_site_rule_path(site_rule) ,class:"btn btn-default"%>
+                <%= link_to '删除', site_rule, method: :delete, data: { confirm: '确定删除？' } ,class:"btn btn-default"%>
+              </div>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= paginate @site_rules %>
+  </div>
+</div>
+

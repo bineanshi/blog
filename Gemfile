@@ -1,10 +1,10 @@
-source 'https://rubygems.org'
+source 'https://ruby.taobao.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'mysql2', '0.3.17'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -48,4 +48,21 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
+gem 'rest-client', '1.8'
+#层级 https://github.com/stefankroes/ancestry
+gem 'ancestry', '2.1.0'
+#search https://github.com/activerecord-hackery/ransack
+gem 'ransack', '~> 1.8', '>= 1.8.4'
+#解析XML/HTML https://rubygems.org/gems/nokogiri
+gem 'nokogiri', '~> 1.8', '>= 1.8.1'
+#https://github.com/sparklemotion/mechanize
+gem 'mechanize', '2.7.3'
+#分页 https://github.com/kaminari/kaminari
+gem 'kaminari', '~> 1.1', '>= 1.1.1'
+#rails control https://github.com/rweng/pry-rails
+gem 'pry-rails', '0.3.2'
 
+# 数据库字段备注
+gem 'migration_comments', '0.3.2'
+# Excel处理
+gem 'spreadsheet', '1.0.0'
