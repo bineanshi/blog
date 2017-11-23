@@ -1,6 +1,6 @@
 <h1>查看站点信息</h1>
-<%= link_to '修改', edit_site_rule_path(@site_rule),class:"btn btn-default" %>
-<%= link_to '返回', site_rules_path,class:"btn btn-default" %>
+<%= link_to '修改', edit_site_rule_path(@site_rule,:back => request.fullpath),class:"btn btn-default" %>
+<%= link_to '返回', params[:back] || site_rules_path,class:"btn btn-default" %>
 <blockquote>
   <p>
     <strong>站点名称:</strong>

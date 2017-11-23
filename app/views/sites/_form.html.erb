@@ -16,7 +16,7 @@
         </div>
       </fieldset>
       <%= f.submit "#{@site.new_record? ? '创建' : '保存'}",class:"btn btn-default"%>
-      <%= link_to '返回', sites_path ,class:"btn btn-default" %>
+      <%= link_to '返回', params[:back] || sites_path ,class:"btn btn-default" %>
     </div>
   <% end %>
 </div>

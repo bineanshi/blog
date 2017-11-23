@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
+  # mount Ckeditor::Engine => '/ckeditor'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   root 'plainpage#index'
-  resources :site_rules
+  resources :site_rules do
+    collection do
+      post :test_rule
+    end
+  end
 
   resources :sites
 

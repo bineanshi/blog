@@ -73,6 +73,13 @@ class SiteRulesController < ApplicationController
     end
   end
 
+  def test_rule
+    @site = Site.find_by(id: params[:site_id])
+    params[:hash].values[0].map{|key,value| params[:hash].values[0].delete(key) if value.blank?}
+    result = Snatch.send("get_#{params[:hash].values[0].keys.join('_')}#{ '_content' if params[:hash].keys[0].to_s == 'content'}",nil,params[:hash].values[0],params[:key],@site)
+    render :html => result.to_s.html_safe
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_site_rule

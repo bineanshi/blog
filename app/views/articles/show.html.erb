@@ -1,49 +1,30 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
-  <%= link_to @article.title, @article.article_url %>
-</p>
-
-<p>
-  <strong>Tabloid:</strong>
-  <%= @article.tabloid %>
-</p>
-
-<p>
-  <strong>Author name:</strong>
-  <%= @article.author_name %>
-</p>
-
-<p>
-  <strong>Content:</strong>
-  <%= @article.content.html_safe %>
-</p>
-
-<p>
-  <strong>Submited at:</strong>
-  <%= @article.submited_at %>
-</p>
-
-<p>
-  <strong>Is publish:</strong>
-  <%= @article.is_publish %>
-</p>
-
-<p>
-  <strong>Desc:</strong>
-  <%= @article.desc %>
-</p>
-
-<p>
-  <strong>Article category:</strong>
-  <%= @article.article_category_id %>
-</p>
-
-<p>
-  <strong>Source category name:</strong>
-  <%= @article.source_category_name %>
-</p>
-
-<%= link_to 'Edit', edit_article_path(@article) %> |
-<%= link_to 'Back', articles_path %>
+<h1><%= @article.title%></h1>
+<%= link_to '返回', params[:back] || articles_path ,class:"btn btn-default" %>
+<div class="clearfix">
+  <blockquote>
+    <p>
+       摘要：<%= @article.tabloid%>
+    </p>
+  </blockquote>
+  <blockquote>
+    <p>
+       栏目：<%= @article.try(:article_category).try(:name)%>
+    </p>
+    <p>
+       作者：<%= @article.author_name%>
+    </p>
+    <p>
+      发布时间：<%= @article.submited_at.strftime("%Y-%m-%d %H:%M:%S")%>
+    </p>
+  </blockquote>
+  <blockquote>
+    <p>
+       备注：<%= @article.desc.html_safe%>
+    </p>
+  </blockquote>
+  <%#= link_to '规则列表', site_rules_path %>
+  <div class="col-md-offset-2 col-md-8">
+    <%= @article.content.html_safe %>
+  </div>
+  
+</div>

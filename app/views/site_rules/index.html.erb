@@ -9,7 +9,8 @@
   </blockquote>
   <%#= link_to '规则列表', site_rules_path %>
   <div class="col-md-6">
-    <%= link_to '新建匹配规则', new_site_rule_path ,class:"btn btn-primary"%>
+    <%= link_to '新建匹配规则', new_site_rule_path(:back => request.fullpath) ,class:"btn btn-primary"%>
+    <%= link_to '返回', params[:back] ,class:"btn btn-default" if params[:back]%>
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -28,10 +29,11 @@
             <td><%= site_rule.rule_name %></td>
             <td class="text-center">
               <div class="btn-group">
-                <%= link_to '查看', site_rule ,class:"btn btn-default"%>
-                <%= link_to '修改', edit_site_rule_path(site_rule) ,class:"btn btn-default"%>
+                <%= link_to '查看', site_rule_path(site_rule, :back => request.fullpath) ,class:"btn btn-default"%>
+                <%= link_to '修改', edit_site_rule_path(site_rule,:back => request.fullpath) ,class:"btn btn-default"%>
                 <%= link_to '删除', site_rule, method: :delete, data: { confirm: '确定删除？' } ,class:"btn btn-default"%>
               </div>
+            </td>
           </tr>
         <% end %>
       </tbody>

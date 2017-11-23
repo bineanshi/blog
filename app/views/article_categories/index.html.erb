@@ -1,31 +1,38 @@
-<h1>Listing article_categories</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Desc</th>
-      <th>Position</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @article_categories.each do |article_category| %>
-      <tr>
-        <td><%= article_category.id %></td>
-        <td><%= article_category.name %></td>
-        <td><%= article_category.desc %></td>
-        <td><%= article_category.position %></td>
-        <td><%= link_to 'Show', article_category %></td>
-        <td><%= link_to 'Edit', edit_article_category_path(article_category) %></td>
-        <td><%= link_to 'Destroy', article_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Article category', new_article_category_path %>
+<h1>栏目列表</h1>
+<div class="clearfix">
+  <blockquote>
+    <p>
+       
+    </p>
+  </blockquote>
+  <div class="col-md-10">
+    <%= link_to '新建栏目', new_article_category_path(:back => request.fullpath) ,class:"btn btn-default"%>
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th class="col-md-1 text-center">序号</th>
+            <th class="text-center">栏目名称</th>
+            <th class="col-md-2 text-center">原网站栏目</th>
+            <th class="col-md-3 text-center">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @article_categories.each_with_index do |article_category,index| %>
+            <tr>
+              <td class="text-center"><%= index + 1 %></td>
+              <td class="text-center"><%= article_category.name %></td>
+              <td class="text-center"><%= article_category.desc %></td>
+              <td class="text-center">
+                <div class="btn-group">
+                  <%= link_to '查看', article_category_path(article_category, :back => request.fullpath) ,class:"btn btn-default"%>
+                  <%= link_to '修改', edit_article_category_path(article_category,:back => request.fullpath),class:"btn btn-default"%>
+                  <%= link_to '删除', article_category_path(article_category), method: :delete, data: { confirm: '确定删除？' } ,class:"btn btn-default"%>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+    </table>
+    <%= paginate @article_categories %>
+  </div>
+</div>

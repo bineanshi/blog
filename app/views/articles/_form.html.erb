@@ -1,53 +1,84 @@
-<%= form_for(@article) do |f| %>
-  <% if @article.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@article.errors.count, "error") %> prohibited this article from being saved:</h2>
-
-      <ul>
-      <% @article.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<div class="clearfix raw">
+<div class="col-md-10">
+  <%= form_for(@article) do |f| %>
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <th class="col-md-1 text-right">
+            标题
+          </th>
+          <td class="col-md-8">
+            <%= f.text_field :title ,class: "col-md-8 form-control"%>
+          </td>
+        </tr>
+        <tr>
+          <th class="text-right">
+            摘要
+          </th>
+          <td>
+            <%= f.text_field :tabloid ,class: "col-md-8 form-control"%>
+          </td>
+        </tr>
+        <tr>
+          <th class="text-right">
+            作者
+          </th>
+          <td>
+            <%= f.text_field :author_name ,class: "col-md-8 form-control"%>
+          </td>
+        </tr>
+        <tr>
+          <th class="text-right">
+            发布时间
+          </th>
+          <td>
+            <%= @article.submited_at.strftime("%Y-%m-%d %H:%M:%S") if @article%>
+          </td>
+        </tr>
+        <tr>
+          <th class="text-right">
+            是否发布
+          </th>
+          <td>
+            <div class="checkbox">
+              <label>
+                <%= f.check_box :is_publish %>
+              </label>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th class="text-right">
+            标题
+          </th>
+          <td>
+            <%= select_tag "article[article_category_id]" ,options_for_select( ArticleCategory.all.map{|ac| [ac.name,ac.id]}),class: "form-control"%>
+          </td>
+        </tr>
+        
+        <tr>
+          <th class="text-right">
+            内容
+          </th>
+          <td>
+            <%#= f.kindeditor :content,:width => "800px"%>
+            <%= f.cktext_area :content %>
+          </td>
+        </tr>
+        <tr>
+          <th class="text-right">
+            备注
+          </th>
+          <td>
+            <%= f.text_area :desc ,class: "col-md-8 form-control"%>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-center">
+      <%= f.submit "#{@article.new_record? ? '创建' : '保存'}",class:"btn btn-default"%>
+      <%= link_to '返回', params[:back] || articles_path ,class:"btn btn-default" %>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :tabloid %><br>
-    <%= f.text_field :tabloid %>
-  </div>
-  <div class="field">
-    <%= f.label :author_name %><br>
-    <%= f.text_field :author_name %>
-  </div>
-  <div class="field">
-    <%= f.label :content %><br>
-    <%= f.text_area :content %>
-  </div>
-  <div class="field">
-    <%= f.label :submited_at %><br>
-    <%= f.datetime_select :submited_at %>
-  </div>
-  <div class="field">
-    <%= f.label :is_publish %><br>
-    <%= f.check_box :is_publish %>
-  </div>
-  <div class="field">
-    <%= f.label :desc %><br>
-    <%= f.text_field :desc %>
-  </div>
-  <div class="field">
-    <%= f.label :article_category_id %><br>
-    <%= f.number_field :article_category_id %>
-  </div>
-  <div class="field">
-    <%= f.label :source_category_name %><br>
-    <%= f.text_field :source_category_name %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
+</div>

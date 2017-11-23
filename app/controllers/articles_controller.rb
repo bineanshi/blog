@@ -4,7 +4,8 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.all
+    @query = Article.ransack(params[:q])
+    @articles = @query.result.page(params[:page]).per(10)
   end
 
   # GET /articles/1

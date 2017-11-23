@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171122164102) do
+ActiveRecord::Schema.define(version: 20171123214653) do
 
   create_table "article_categories", force: :cascade do |t|
     t.string   "name",       limit: 255, comment: "品目名称"
@@ -46,6 +46,20 @@ ActiveRecord::Schema.define(version: 20171122164102) do
   add_index "articles", ["is_publish"], name: "index_articles_on_is_publish", using: :btree
   add_index "articles", ["source_category_name"], name: "index_articles_on_source_category_name", using: :btree
   add_index "articles", ["title"], name: "index_articles_on_title", using: :btree
+
+  create_table "ckeditor_assets", force: :cascade do |t|
+    t.string   "data_file_name",    limit: 255, null: false
+    t.string   "data_content_type", limit: 255
+    t.integer  "data_file_size",    limit: 4
+    t.string   "data_fingerprint",  limit: 255
+    t.string   "type",              limit: 30
+    t.integer  "width",             limit: 4
+    t.integer  "height",            limit: 4
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "ckeditor_assets", ["type"], name: "index_ckeditor_assets_on_type", using: :btree
 
   create_table "site_rules", force: :cascade do |t|
     t.integer  "site_id",    limit: 4

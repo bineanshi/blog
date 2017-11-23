@@ -1,8 +1,25 @@
-<%= link_to 'sites', sites_path %>
+<h1>抓取文章</h1>
+<div class="clearfix">
+  <blockquote>
+    <p>
 
-<%= form_tag(get_article_articles_path, class:  "valid_engine mt10") do %>
-  <%= hidden_field_tag "back",params[:back] || articles_path%>
-  <%= select_tag 'site_rule_id',options_for_select(SiteRule.all.map{|sr| ["#{sr.site_name}--#{sr.rule_name}",sr.id]})%>
-  <%= text_field_tag "k"%>
-  <%= submit_tag "导入","data-loading-text" => "处理中..." %>
-<% end %>
+    </p>
+  </blockquote>
+  <%#= link_to '规则列表', site_rules_path %>
+  <div class="col-md-10">
+    <%= link_to '创建规则', sites_path(:back => request.fullpath) ,class:"btn btn-primary"%>
+    <%= link_to '返回', params[:back] || articles_path ,class:"btn btn-default"%>
+		<%= form_tag(get_article_articles_path, class:  "valid_engine mt10") do %>
+			  <%= hidden_field_tag "back",params[:back] || articles_path%>
+			  <div class="form-group">
+	        <%= label_tag 'site_rule_id', "抓取规则" %>
+	        <%= select_tag 'site_rule_id',options_for_select(SiteRule.rules),:class => "form-control"%>
+	      </div>
+	      <div class="form-group">
+	        <%= label_tag "k", "抓取文章标题" %>
+	        <%= text_field_tag "k",nil,:class => "form-control"%>
+	      </div>
+			  <%= submit_tag "抓取", class:"btn btn-primary", "data-loading-text" => "处理中..." %>
+		<% end %>
+	</div>
+</div>

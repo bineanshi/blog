@@ -12,10 +12,8 @@
 //
 //= require jquery
 //= require bootstrap-sprockets
-
 //= require jquery_ujs
 //= require turbolinks
-
 //= require js/flot/jquery.flot.js
 //= require js/flot/jquery.flot.pie.js
 //= require js/flot/jquery.flot.orderBars.js
@@ -40,6 +38,4 @@
 //= require  js/nprogress.js
 
 //= require flash.js
-
-
-
+//= require dialog.js

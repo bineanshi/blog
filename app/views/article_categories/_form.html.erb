@@ -1,33 +1,39 @@
-<%= form_for(@article_category) do |f| %>
-  <% if @article_category.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@article_category.errors.count, "error") %> prohibited this article_category from being saved:</h2>
+<div class="clearfix raw">
+  <div class="col-md-10">
+    <%= form_for(@article_category) do |f| %>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th class="col-md-1 text-right">
+              栏目名称
+            </th>
+            <td class="col-md-8">
+              <%= f.text_field :name ,class: "col-md-8 form-control"%>
+            </td>
+          </tr>
+          <tr>
+            <th class="col-md-1 text-right">
+              原网站栏目
+            </th>
+            <td class="col-md-8">
+              <%= f.text_field :desc ,class: "col-md-8 form-control"%>
+            </td>
+          </tr>
+          <tr>
+            <th class="col-md-1 text-right">
+              位置
+            </th>
+            <td class="col-md-8">
+              <%= f.number_field :position ,class: "col-md-8 form-control"%>
+            </td>
+          </tr>
 
-      <ul>
-      <% @article_category.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :id %><br>
-    <%= f.number_field :id %>
+        </tbody>
+      </table>
+      <div class="text-center">
+        <%= f.submit "#{@article_category.new_record? ? '创建' : '保存'}",class:"btn btn-default"%>
+        <%= link_to '返回', params[:back] || article_categorys_path ,class:"btn btn-default" %>
+      </div>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :desc %><br>
-    <%= f.text_field :desc %>
-  </div>
-  <div class="field">
-    <%= f.label :position %><br>
-    <%= f.number_field :position %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

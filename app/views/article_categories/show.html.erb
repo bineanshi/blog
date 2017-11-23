@@ -1,24 +1,19 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Id:</strong>
-  <%= @article_category.id %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @article_category.name %>
-</p>
-
-<p>
-  <strong>Desc:</strong>
-  <%= @article_category.desc %>
-</p>
-
-<p>
-  <strong>Position:</strong>
-  <%= @article_category.position %>
-</p>
-
-<%= link_to 'Edit', edit_article_category_path(@article_category) %> |
-<%= link_to 'Back', article_categories_path %>
+<h1>栏目信息</h1>
+<%= link_to '返回', params[:back] || article_categories_path ,class:"btn btn-default" %>
+<div class="clearfix">
+  <blockquote>
+    <p>
+       栏目名称：<%= @article_category.name%>
+    </p>
+  </blockquote>
+  <blockquote>
+    <p>
+       原网站栏目：<%= @article_category.desc%>
+    </p>
+  </blockquote>
+  <blockquote>
+    <p>
+       位置：<%= @article_category.position%>
+    </p>
+  </blockquote>
+ </div>

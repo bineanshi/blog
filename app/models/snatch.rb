@@ -43,7 +43,7 @@ class Snatch
 
 		obj_params = {}
 		rule.keys.each do |key|
-			obj_params[key] = Snatch.send("get_#{rule[key].keys.join('_')}#{ '_content' if key.to_s == 'content'}", doc, rule[key])
+			obj_params[key] = Snatch.send("get_#{rule[key].keys.join('_')}#{ '_content' if params[:hash].keys[0].to_s == 'content'}", doc, rule[key])
 		end
 
 		obj = obj_name.camelize.constantize.find_or_initialize_by(obj_params)
@@ -51,7 +51,7 @@ class Snatch
 
 		obj.save
 
-		image_links = Snatch.send("get_#{$site_rule.images.keys.join('_')}_image", doc, $site_rule.images)
+		image_links = Snatch.send("get_#{$site_rule.images.keys.join('_')}", doc, $site_rule.images)
 		image_links.each do |link|
 			image_url = "#{site_rule.site.main_url}#{link["src"]}"
 			Snatch.download_img(image_url,link["src"])
@@ -66,39 +66,80 @@ class Snatch
 		       html = RestClient.get(url)
 					doc = Nokogiri::HTML(html)
 		     rescue Exception => e
-		       
+		       return nil
 		     end
 			end
 		rescue StandardError,Timeout::Error
-			
+			return nil
 		end
 		return doc
 	end
 
-	def self.get_search(body, hash)
-		body.search(hash[:search]).text().to_s.gsub('　','').gsub("\n",'')
-	end
-	def self.get_css(body, hash)
-		body.css(hash[:css])
-	end
-	def self.get_css_image(body,image)
-		body.css(image[:css])
-	end
-	def self.get_search_css_image(body,image)
-		body.search(image[:search]).css(image[:css])
-	end
-	def self.get_search_content(body, hash)
-		body.search(hash[:search]).to_s.gsub('　','').gsub("\n",'')
+	def self.get_doc(site,key)
+		search_key_ascii = CGI::escape(key)
+		source_url = site.search_url.gsub(/{search_key_ascii}/,search_key_ascii)
+		body = Snatch.rc(source_url)
 	end
 
-	def self.get_search_css(body, hash)
-		body.search(hash[:search]).css(hash[:css])
+	def self.get_search_content(body, hash, url = nil, site = nil)
+		body = Snatch.rc(url) unless body.presence
+		body = Snatch.get_doc(site,url) unless body.presence
+		if body.presence
+			body.search(hash[:search]).to_s.gsub('　','').gsub("\n",'')
+		end
 	end
 
-	def self.get_search_key(body, hash)
-		content = body.search(hash[:search]).text().to_s.gsub('　','').gsub("\n",'')
-		regex = Regexp.new(hash[:key])
-		content.scan(regex) ? $1.strip : ''		
+	def self.get_search_key_content(body, hash, url = nil, site = nil)
+		body = Snatch.rc(url) unless body.presence
+		body = Snatch.get_doc(site,url) unless body.presence
+		if body.presence
+			content = body.search(hash[:search]).to_s.gsub('　','').gsub("\n",'')
+			regex = Regexp.new(hash[:key])
+			content.scan(regex) ? $1.strip : ''
+		end
+	end
+
+	def self.get_search(body, hash, url = nil, site = nil)
+		body = Snatch.rc(url) unless body.presence
+		body = Snatch.get_doc(site,url) unless body.presence
+		if body.presence
+			body.search(hash[:search]).text().to_s.gsub('　','').gsub("\n",'')
+		end
+	end
+
+	def self.get_css(body, hash, url = nil, site = nil)#结果集
+		body = Snatch.rc(url) unless body.presence
+		body = Snatch.get_doc(site,url) unless body.presence
+		if body.presence
+			body.css(hash[:css])
+		end
+	end
+
+	def self.get_key(body, hash, url = nil, site = nil)
+		body = Snatch.rc(url) unless body.presence
+		body = Snatch.get_doc(site,url) unless body.presence
+		if body.presence
+			regex = Regexp.new(hash[:key])
+			body.to_s.gsub('　','').gsub("\n",'').scan(regex) ? $1.strip : ''		
+		end
+	end
+
+	def self.get_search_css(body, hash, url = nil, site = nil)
+		body = Snatch.rc(url) unless body.presence
+		body = Snatch.get_doc(site,url) unless body.presence
+		if body.presence
+			body.search(hash[:search]).css(hash[:css])
+		end
+	end
+
+	def self.get_search_key(body, hash, url = nil, site = nil)
+		body = Snatch.rc(url) unless body.presence
+		body = Snatch.get_doc(site,url) unless body.presence
+		if body.presence
+			content = body.search(hash[:search]).text().to_s.gsub('　','').gsub("\n",'')
+			regex = Regexp.new(hash[:key])
+			content.scan(regex) ? $1.strip : ''	
+		end	
 	end
 
 	def self.download_img(image_url,path)
