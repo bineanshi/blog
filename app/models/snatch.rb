@@ -43,7 +43,7 @@ class Snatch
 
 		obj_params = {}
 		rule.keys.each do |key|
-			obj_params[key] = Snatch.send("get_#{rule[key].keys.join('_')}#{ '_content' if params[:hash].keys[0].to_s == 'content'}", doc, rule[key])
+			obj_params[key] = Snatch.send("get_#{rule[key].keys.join('_')}#{ '_content' if key.to_s == 'content'}", doc, rule[key])
 		end
 
 		obj = obj_name.camelize.constantize.find_or_initialize_by(obj_params)
